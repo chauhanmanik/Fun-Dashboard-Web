@@ -3,6 +3,7 @@
 ## Help
 
 Video: https://www.youtube.com/watch?v=GhPi3xBhzrI
+Dashboard Video to follow (Part3): https://www.youtube.com/watch?v=sitHfnoeT88
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
 
