@@ -50,7 +50,7 @@ jobs:
         run: |
           echo "chrome_bin=$(which chrome)" >> "$GITHUB_OUTPUT"
 
-      - run: npm run test-ci
+      - run: npm run test
         env:
           CHROME_BIN: ${{ steps.get-chrome-bin.outputs.chrome_bin }}
 
