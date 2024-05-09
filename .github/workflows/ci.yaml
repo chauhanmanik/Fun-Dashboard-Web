@@ -41,18 +41,19 @@ jobs:
 
       - run: npm run lint
 
-      - uses: browser-actions/setup-chrome@latest
-        with:
-          chrome-version: 120
-      - run: chrome --version
+      - run: npm test -- --watch=false --browsers=ChromeHeadless
+      # - uses: browser-actions/setup-chrome@latest
+      #   with:
+      #     chrome-version: 120
+      # - run: chrome --version
 
-      - id: get-chrome-bin
-        run: |
-          echo "chrome_bin=$(which chrome)" >> "$GITHUB_OUTPUT"
+      # - id: get-chrome-bin
+      #   run: |
+      #     echo "chrome_bin=$(which chrome)" >> "$GITHUB_OUTPUT"
 
-      - run: npm run test
-        env:
-          CHROME_BIN: ${{ steps.get-chrome-bin.outputs.chrome_bin }}
+      # - run: npm run test
+      #   env:
+      #     CHROME_BIN: ${{ steps.get-chrome-bin.outputs.chrome_bin }}
 
   build:
     runs-on: ${{ inputs.runner}}
