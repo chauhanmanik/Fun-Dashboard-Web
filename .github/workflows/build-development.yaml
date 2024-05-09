@@ -1,0 +1,47 @@
+name: Build (developement)
+
+on:
+  push:
+    branches:
+      - "!master"
+      - "!main"
+      - "feature/*"
+      - "hotfix/*"
+      - "release/*"
+      - "task/*"
+
+  workflow_call:
+    inputs:
+      sha:
+        type: string
+        required: false
+        default: ""
+        description: "The commit SHA to check out and build. If not provided defaults to the HEAD commit of the Pull Request."
+
+jobs:
+  build:
+    uses: ./.github/workflows/ci.yaml
+
+    # runs-on: ubuntu-latest
+
+    # strategy:
+    #   matrix:
+    #     node-version: [14.x, 16.x, 18.x, 20.x]
+    #     # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    # steps:
+    # - name: Checkout
+    #   uses: actions/checkout@v4
+    #   with:
+    #     ref: ${{ inputs.sha || github.event.pull_request.head.sha }}
+
+    # - name: 'Setup'
+
+    # - name: Use Node.js ${{ matrix.node-version }}
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+    #     cache: 'npm'
+    # - run: npm ci
+    # - run: npm run build --if-present
+    # - run: npm test

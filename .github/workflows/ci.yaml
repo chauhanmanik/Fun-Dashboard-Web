@@ -1,0 +1,75 @@
+name: Continuous Integration
+
+on:
+  workflow_call:
+    inputs:
+      runner:
+        type: string
+        required: false
+        default: "ubuntu-latest"
+        description: "Requests non default runner for the build job"
+      sha:
+        type: string
+        required: false
+        default: ""
+        description: "The commit SHA to check out and build. If not provided defaults to the HEAD commit of the Pull Request."
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  # Same version as in eu.gcr.io/firefly-devops-2018/npm:lts
+  NODE_VERSION: v14.17.3
+  # Same version as in eu.gcr.io/firefly-devops-2018/npm:lts
+  NPM_VERSION: 6.14.13
+  # 92.0.4515.107
+  # CHROME_SNAPSHOT: 885292
+  DIST_ARTIFACT: dist/fun-dashboard-web
+
+jobs:
+  test:
+    runs-on: ${{ inputs.runner }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.sha || github.event.pull_request.head.sha }}
+
+      - uses: ./.github/actions/setup
+
+      - run: npm run lint
+
+      - uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: 120
+      - run: chrome --version
+
+      - id: get-chrome-bin
+        run: |
+          echo "chrome_bin=$(which chrome)" >> "$GITHUB_OUTPUT"
+
+      - run: npm run test-ci
+        env:
+          CHROME_BIN: ${{ steps.get-chrome-bin.outputs.chrome_bin }}
+
+  build:
+    runs-on: ${{ inputs.runner}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.sha || github.event.pull_request.head.sha }}
+
+      - id: setup
+        uses: ./.github/actions/setup
+
+      - run: npm run build
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.DIST_ARTIFACT }}
+          path: dist/fun-dashboard-web
+          retention-days: 1
