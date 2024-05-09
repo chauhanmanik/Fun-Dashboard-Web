@@ -1,0 +1,55 @@
+# https://www.youtube.com/watch?v=w_37LDOy4sI
+name: CI + CD
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Compile
+        run: echo Deploying!
+
+  DeployDev:
+    name: Deploy to Dev
+    if: github.event_name -- 'pull_request'
+    needs: [Build]
+    runs-on: ubuntu-latest
+    environment:
+      name: Developemnt
+      url: 'http://fun-dashboard-web-deploy.azurewebsites.net'
+    steps:
+      - name: Deploy
+        run: echo Im deploying!
+  
+  DeployStaging:
+    name: Deploy to statging
+    if: github.event.ref == 'refs/head/master'
+    needs: [Build]
+    runs-on: ubuntu-latest
+    environment:
+      name: Staging
+      url: 'http://fun-dashboard-web-deploy.azurewebsites.net'
+    steps:
+      - name: Deploy
+        run:  echo I m deploying
+    
+  DeployProd:
+    name: Deploy to Production
+    needs: [DeployStaging]
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: 'http://fun-dashboard-web-deploy.azurewebsites.net'
+    steps:
+      - name: Deploy
+        run: echo I m deploying!
+        
+      
