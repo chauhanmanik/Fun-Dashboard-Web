@@ -1,6 +1,15 @@
 # FunDashboardWeb
+
 # CICD Environment test
+
 ## Help
+
+# Github reassign to new repository
+
+PS C:\Projects\TestLab\Fun-Dashboard-Web> git remote remove origin
+PS C:\Projects\TestLab\Fun-Dashboard-Web> git remote add origin https://github.com/chauhanmanik/Fun-Dashboard-Web.git
+PS C:\Projects\TestLab\Fun-Dashboard-Web> git branch -M master
+PS C:\Projects\TestLab\Fun-Dashboard-Web> git push -u origin master
 
 Video: https://www.youtube.com/watch?v=GhPi3xBhzrI
 Dashboard Video to follow (Part3): https://www.youtube.com/watch?v=sitHfnoeT88
