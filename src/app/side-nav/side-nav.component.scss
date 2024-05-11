@@ -33,6 +33,10 @@
   height: 0px !important;
 }
 
+.mat-mdc-nav-list .mat-mdc-list-item {
+  border-radius: 0;
+}
+
 .menu-item {
   border-left: 5px solid;
   border-left-color: rgba(0, 0, 0, 0);

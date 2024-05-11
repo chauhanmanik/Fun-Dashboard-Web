@@ -10,7 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'fun-root',
   standalone: true,
   imports: [
     RouterOutlet,
