@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { RouterModule } from '@angular/router';
 import { SideNavComponent } from './side-nav.component';
-import { ActivatedRoute, RouterModule } from '@angular/router';
 
 describe('SideNavComponent', () => {
   let component: SideNavComponent;
