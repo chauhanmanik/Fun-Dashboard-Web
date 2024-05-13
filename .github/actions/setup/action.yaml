@@ -26,6 +26,3 @@ runs:
 
     - run: npm install --no-progress
       shell: bash
-
-    # - run: npm run postinstall
-    #   shell: bash
